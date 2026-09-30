@@ -1,0 +1,1035 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Javier Antón · Desarrollador Web</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="apple-touch-icon" href="favicon.png">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- Glow cursor -->
+<div class="glow" id="glow"></div>
+<div class="win-overlay" id="winOverlay"></div>
+
+<!-- ═══ NAV ═══ -->
+<nav>
+  <a href="#hero"><img src="favicon.png" alt="JA" class="nav-logo"></a>
+  <div class="nav-right">
+    <div class="nav-links">
+      <a href="#sobre" data-i18n="nav.about">Sobre mí</a>
+      <a href="#stack">Stack</a>
+      <a href="#proyectos" data-i18n="nav.projects">Proyectos</a>
+      <a href="#trayectoria" data-i18n="nav.timeline">Trayectoria</a>
+      <a href="#contacto" data-i18n="nav.contact">Contacto</a>
+    </div>
+    <button class="lang-toggle" id="langToggle" aria-label="Cambiar idioma">
+      <span class="lang-opt active" data-lang="es">ES</span>
+      <span class="lang-opt" data-lang="en">EN</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ═══ SIDE NAV DOTS ═══ -->
+<div class="nav-dots" id="navDots">
+  <button class="dot active" data-section="hero" aria-label="Inicio"></button>
+  <button class="dot" data-section="sobre" aria-label="Sobre mí"></button>
+  <button class="dot" data-section="stack" aria-label="Stack"></button>
+  <button class="dot" data-section="proyectos" aria-label="Proyectos"></button>
+  <button class="dot" data-section="trayectoria" aria-label="Trayectoria"></button>
+  <button class="dot" data-section="contacto" aria-label="Contacto"></button>
+</div>
+
+<!-- ═══ SCROLL DIRECTION INDICATOR ═══ -->
+<div class="scroll-hint" id="scrollHint">
+  <span class="scroll-hint-text" id="scrollHintText">scroll ↓</span>
+</div>
+
+<!-- ═══ WHATSAPP BUTTON ═══ -->
+<a class="whatsapp-btn" href="https://wa.me/34606084122" target="_blank" rel="noopener" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+  </svg>
+</a>
+
+<!-- ═══════════════════════════════════════════
+     HERO
+     ═══════════════════════════════════════════ -->
+<section id="hero" class="panel">
+  <div class="hero-grid">
+    <div>
+      <span class="tag mono"><i></i> <span data-i18n="hero.tag">Disponible · incorporación inmediata</span></span>
+      <h1><span data-i18n="hero.greeting">Hola, soy</span><br><span class="grad">Javier Antón</span></h1>
+      <div class="role mono">&gt; <span id="typed"></span><span class="cur"></span></div>
+      <p class="sub" data-i18n="hero.sub">Creo soluciones digitales funcionales y entornos tecnológicos que mejoran la experiencia de las personas.</p>
+      <div class="btns">
+        <a class="btn p" href="#proyectos" data-i18n="hero.cta1">Ver proyectos →</a>
+        <a class="btn" href="#contacto" data-i18n="hero.cta2">Hablemos</a>
+      </div>
+    </div>
+    <div class="win-container">
+      <div class="win" id="codeWin">
+        <div class="bar"><i title="Cerrar"></i><i title="Minimizar"></i><i title="Maximizar"></i></div>
+<!-- Código en español -->
+<pre class="mono" data-lang="es"><span class="k">const</span> J avier = {
+  <span class="f">rol</span>: <span class="s">"Desarrollador Web"</span>,
+  <span class="f">base</span>: <span class="s">"Madrid, España"</span>,
+  <span class="f">estudia</span>: <span class="s">"DAW · ESIC University"</span>,
+  <span class="f">valores</span>: [<span class="s">"compromiso"</span>, <span class="s">"ética"</span>,
+             <span class="s">"trabajo en equipo"</span>],
+  <span class="f">idiomas</span>: [<span class="s">"ES nativo"</span>, <span class="s">"EN medio"</span>],
+  <span class="f">disponible</span>: <span class="k">true</span>
+};
+<span class="c">// siempre aprendiendo algo nuevo</span></pre>
+<!-- Code in English -->
+<pre class="mono" data-lang="en" style="display:none"><span class="k">const</span> javier = {
+  <span class="f">role</span>: <span class="s">"Web Developer"</span>,
+  <span class="f">base</span>: <span class="s">"Madrid, Spain"</span>,
+  <span class="f">studies</span>: <span class="s">"DAW · ESIC University"</span>,
+  <span class="f">values</span>: [<span class="s">"commitment"</span>, <span class="s">"ethics"</span>,
+            <span class="s">"teamwork"</span>],
+  <span class="f">languages</span>: [<span class="s">"ES native"</span>, <span class="s">"EN intermediate"</span>],
+  <span class="f">available</span>: <span class="k">true</span>
+};
+<span class="c">// always learning something new</span></pre>
+      </div>
+      <button class="win-reopen mono" id="winReopen" title="Abrir terminal">&lt;/&gt;</button>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     ABOUT
+     ═══════════════════════════════════════════ -->
+<section id="sobre" class="panel">
+  <div class="inner rv">
+    <span class="section-num">01</span>
+    <div class="about-grid">
+      <div class="about-content">
+        <h2 data-i18n="about.title">Sobre mí</h2>
+        <p class="sub" style="margin-bottom:34px" data-i18n="about.text">Soy estudiante de Desarrollo de Aplicaciones Web. Me destaco por mi compromiso, ética profesional y capacidad para trabajar en equipo. Disfruto colaborando en proyectos, resolviendo problemas técnicos y contribuyendo al crecimiento y los objetivos del equipo y la organización. Vengo del mundo de los RR.HH., así que sé lo que es liderar, comunicar y entender a las personas detrás de cada producto.</p>
+        <div class="chips stagger">
+          <span class="chip" data-i18n="about.chip1">🧠 Resolución de problemas</span>
+          <span class="chip" data-i18n="about.chip2">🤝 Trabajo en equipo</span>
+          <span class="chip" data-i18n="about.chip3">🧭 Liderazgo</span>
+          <span class="chip" data-i18n="about.chip4">🎯 Determinación</span>
+        </div>
+      </div>
+      <div class="about-walker-col">
+        <div class="walk-anim-card">
+          <div class="walk-anim-viewport">
+            <img src="javier_walk.jpg" alt="Javier Antón" class="walk-anim-img" draggable="false" />
+            <!-- Floor shadow that pulses with steps -->
+            <div class="walk-floor-shadow"></div>
+            <!-- Step ripple elements -->
+            <div class="walk-ripple walk-ripple-l"></div>
+            <div class="walk-ripple walk-ripple-r"></div>
+            <!-- Gradient fade at bottom -->
+            <div class="walk-fade-bottom"></div>
+            <!-- Badge -->
+            <div class="walk-badge mono">
+              <span class="walk-badge-dot"></span>
+              <span data-i18n="walker.idle">Interactivo</span>
+            </div>
+          </div>
+          <div class="walk-anim-footer mono">
+            <span class="walk-foot-icon">👟</span>
+            <span data-i18n="walk.caption">Javier Antón · Caminando hacia el futuro</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     STACK
+     ═══════════════════════════════════════════ -->
+<section id="stack" class="panel">
+  <div class="inner rv">
+    <span class="section-num">02</span>
+    <h2 data-i18n="stack.title">Stack &amp; herramientas</h2>
+    <p class="sub" style="margin-bottom:34px" data-i18n="stack.sub">Con lo que construyo y con lo que trabajo a diario.</p>
+    <div class="chips stagger">
+      <span class="chip mono">HTML5</span>
+      <span class="chip mono">CSS3</span>
+      <span class="chip mono">JavaScript</span>
+      <span class="chip mono">Java</span>
+      <span class="chip mono">SQL</span>
+      <span class="chip mono">VS Code</span>
+      <span class="chip mono">IntelliJ IDEA</span>
+      <span class="chip mono">Canva</span>
+      <span class="chip mono">Microsoft Office</span>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     PROJECTS — HORIZONTAL SCROLL
+     ═══════════════════════════════════════════ -->
+<div class="h-wrapper" id="proyectos">
+  <div class="h-sticky">
+    <div class="h-progress"><div class="h-progress-bar" id="hProgress"></div></div>
+    <div class="h-header">
+      <h2 data-i18n="projects.title">Proyectos</h2>
+      <span class="mono h-counter"><span id="currentSlide">01</span> / <span id="totalSlides">03</span></span>
+    </div>
+    <div class="h-track" id="hTrack">
+
+      <!-- Proyecto 01 -->
+      <div class="h-panel">
+        <div class="project-slide">
+          <div class="project-visual">🚀</div>
+          <div class="project-info">
+            <span class="mono project-num">01</span>
+            <h3 data-i18n="p1.title">Proyecto 01</h3>
+            <p data-i18n="p1.desc">Descripción breve: qué problema resuelve y qué hiciste tú.</p>
+            <small class="mono">HTML · CSS · JS</small><br>
+            <a class="project-link" href="#" data-i18n="p1.link">Ver proyecto →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proyecto 02 -->
+      <div class="h-panel">
+        <div class="project-slide">
+          <div class="project-visual">🛒</div>
+          <div class="project-info">
+            <span class="mono project-num">02</span>
+            <h3 data-i18n="p2.title">Proyecto 02</h3>
+            <p data-i18n="p2.desc">Descripción breve: qué problema resuelve y qué hiciste tú.</p>
+            <small class="mono">Tecnologías</small><br>
+            <a class="project-link" href="#" data-i18n="p2.link">Ver proyecto →</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Proyecto 03 -->
+      <div class="h-panel">
+        <div class="project-slide">
+          <div class="project-visual">⚙️</div>
+          <div class="project-info">
+            <span class="mono project-num">03</span>
+            <h3 data-i18n="p3.title">Proyecto 03</h3>
+            <p data-i18n="p3.desc">Descripción breve: qué problema resuelve y qué hiciste tú.</p>
+            <small class="mono">Tecnologías</small><br>
+            <a class="project-link" href="#" data-i18n="p3.link">Ver proyecto →</a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════
+     TIMELINE
+     ═══════════════════════════════════════════ -->
+<section id="trayectoria" class="panel panel-auto">
+  <div class="two rv">
+    <div>
+      <h2 data-i18n="edu.title">Formación</h2>
+      <p class="sub" style="margin-bottom:20px" data-i18n="edu.sub">Aprendizaje continuo.</p>
+      <div class="tl">
+        <div class="it">
+          <em data-i18n="edu.1.date">SEP 2025 – ACTUALIDAD</em>
+          <h4 data-i18n="edu.1.title">CFGS Desarrollo de Aplicaciones Web</h4>
+          <p data-i18n="edu.1.place">ESIC University</p>
+        </div>
+        <div class="it">
+          <em data-i18n="edu.2.date">SEP 2021 – JUN 2025</em>
+          <h4 data-i18n="edu.2.title">Doble Grado en Relaciones Laborales y RR.HH.</h4>
+          <p data-i18n="edu.2.place">UNIR – Universidad de La Rioja</p>
+        </div>
+        <div class="it">
+          <em data-i18n="edu.3.date">CICLO FORMATIVO</em>
+          <h4>TAFAD</h4>
+          <p data-i18n="edu.3.place">Qualitas Europa · Animación de Actividades Físicas y Deportivas</p>
+        </div>
+      </div>
+    </div>
+    <div>
+      <h2 data-i18n="exp.title">Experiencia</h2>
+      <p class="sub" style="margin-bottom:20px" data-i18n="exp.sub">Trato con personas y procesos.</p>
+      <div class="tl">
+        <div class="it">
+          <em data-i18n="exp.1.date">MAY 2024 – MAY 2025</em>
+          <h4 data-i18n="exp.1.title">Reclutamiento · ARSEM</h4>
+          <p data-i18n="exp.1.desc">Servicios Energéticos. Fuentes de reclutamiento, cribas, entrevistas.</p>
+        </div>
+        <div class="it">
+          <em data-i18n="exp.2.date">DIC 2023 – MAY 2024</em>
+          <h4 data-i18n="exp.2.title">Agente de seguros · MAPFRE</h4>
+          <p data-i18n="exp.2.desc">Majadahonda. Asesoramiento y atención al cliente.</p>
+        </div>
+        <div class="it">
+          <em data-i18n="exp.3.date">MAY 2022 – DIC 2023</em>
+          <h4 data-i18n="exp.3.title">Notaría de Leganés</h4>
+          <p data-i18n="exp.3.desc">Redacción de documentos, actas y atención a clientes.</p>
+        </div>
+        <div class="it">
+          <em data-i18n="exp.4.date">NOV 2021 – MAY 2022</em>
+          <h4 data-i18n="exp.4.title">Internship · Randstad</h4>
+          <p data-i18n="exp.4.desc">Detección de talento y ajuste perfil-puesto.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════
+     CONTACT
+     ═══════════════════════════════════════════ -->
+<section id="contacto" class="panel contact">
+  <div class="inner rv">
+    <h2 data-i18n="contact.title">¿Construimos algo juntos?</h2>
+    <p class="sub" style="margin-bottom:36px" data-i18n="contact.sub">Cuéntame tu proyecto o propuesta. Te respondo en menos de 24 h.</p>
+
+    <div class="contact-grid">
+
+      <!-- ── Datos de contacto ── -->
+      <div class="contact-info">
+        <a class="contact-item" href="tel:+34606084122">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <span>606 084 122</span>
+        </a>
+        <a class="contact-item" href="https://www.instagram.com/javiantonc/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/></svg>
+          <span>@javiantonc</span>
+        </a>
+        <a class="contact-item" href="https://www.linkedin.com/in/javierantoncoca/" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>
+          <span>LinkedIn</span>
+        </a>
+      </div>
+
+      <!-- ── Formulario de contacto ── -->
+      <form class="contact-form" id="contactForm" novalidate>
+        <!-- Formspree: envía a javieranton1717@gmail.com -->
+        <input type="hidden" name="_subject" value="Nuevo mensaje desde tu portfolio ✈️">
+        <input type="hidden" name="_replyto" id="cf_replyto">
+        <input type="text" name="_gotcha" style="display:none">
+
+        <div class="cf-row">
+          <div class="cf-field">
+            <label for="cf_nombre" data-i18n="form.nombre">Nombre</label>
+            <input type="text" id="cf_nombre" name="nombre" autocomplete="given-name" placeholder="Tu nombre" required>
+          </div>
+          <div class="cf-field">
+            <label for="cf_apellido" data-i18n="form.apellido">Apellido</label>
+            <input type="text" id="cf_apellido" name="apellido" autocomplete="family-name" placeholder="Tu apellido" required>
+          </div>
+        </div>
+        <div class="cf-field">
+          <label for="cf_sector" data-i18n="form.sector">Sector</label>
+          <select id="cf_sector" name="sector" class="cf-select" required>
+            <option value="" disabled selected data-i18n="form.sector_ph">— Selecciona tu sector —</option>
+            <option value="Hostelería y restauración">🍽️ Hostelería y restauración</option>
+            <option value="Clínicas dentales">🦷 Clínicas dentales</option>
+            <option value="Talleres mecánicos">🔧 Talleres mecánicos</option>
+            <option value="Retail y comercio">🛍️ Retail y comercio</option>
+            <option value="Inmobiliaria">🏠 Inmobiliaria</option>
+            <option value="Construcción y reformas">🏗️ Construcción y reformas</option>
+            <option value="Salud y clínicas médicas">🏥 Salud y clínicas médicas</option>
+            <option value="Belleza y estética">💅 Belleza y estética</option>
+            <option value="Gimnasios y deporte">🏋️ Gimnasios y deporte</option>
+            <option value="Educación y formación">📚 Educación y formación</option>
+            <option value="Tecnología y software">💻 Tecnología y software</option>
+            <option value="Marketing y publicidad">📣 Marketing y publicidad</option>
+            <option value="Juridico y legal">⚖️ Jurídico y legal</option>
+            <option value="Finanzas y contabilidad">💰 Finanzas y contabilidad</option>
+            <option value="Logística y transporte">🚚 Logística y transporte</option>
+            <option value="Turismo y viajes">✈️ Turismo y viajes</option>
+            <option value="Fotografía y audiovisual">📸 Fotografía y audiovisual</option>
+            <option value="Moda y diseño">👗 Moda y diseño</option>
+            <option value="Arquitectura e interiorismo">🏛️ Arquitectura e interiorismo</option>
+            <option value="Industria y manufactura">🏭 Industria y manufactura</option>
+            <option value="Energía y medio ambiente">🌱 Energía y medio ambiente</option>
+            <option value="Agricultura y alimentación">🌾 Agricultura y alimentación</option>
+            <option value="Seguros">🛡️ Seguros</option>
+            <option value="ONG y sector social">🤝 ONG y sector social</option>
+            <option value="Otro">📌 Otro</option>
+          </select>
+        </div>
+        <div class="cf-field">
+          <label for="cf_email" data-i18n="form.email">Correo electrónico</label>
+          <input type="email" id="cf_email" name="email" autocomplete="email" placeholder="tu@email.com" required>
+        </div>
+        <div class="cf-field">
+          <label for="cf_msg" data-i18n="form.message">Mensaje</label>
+          <textarea id="cf_msg" name="message" rows="4" placeholder="Cuéntame tu idea…" required data-i18n-placeholder="form.msg_ph"></textarea>
+        </div>
+
+        <button type="submit" class="cf-submit btn p btn-icon" id="cfSubmit">
+          <svg class="cf-plane" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 2 11 13"/><path d="M22 2 15 22 11 13 2 9l20-7z"/></svg>
+          <span class="cf-submit-text" data-i18n="form.send">Enviar mensaje</span>
+        </button>
+      </form>
+
+    </div>
+  </div>
+</section>
+
+<footer class="mono" data-i18n="footer">© 2026 Javier Antón · Madrid, España</footer>
+
+<script>
+/* ═══════════════════════════════════════════
+   TRANSLATIONS
+   ═══════════════════════════════════════════ */
+var i18n = {
+  es: {
+    "nav.about": "Sobre mí",
+    "nav.projects": "Proyectos",
+    "nav.timeline": "Trayectoria",
+    "nav.contact": "Contacto",
+    "hero.tag": "Disponible · incorporación inmediata",
+    "hero.greeting": "Hola, soy",
+    "hero.sub": "Creo soluciones digitales funcionales y entornos tecnológicos que mejoran la experiencia de las personas.",
+    "hero.cta1": "Ver proyectos →",
+    "hero.cta2": "Hablemos",
+    "about.title": "Sobre mí",
+    "about.text": "Soy estudiante de Desarrollo de Aplicaciones Web. Me destaco por mi compromiso, ética profesional y capacidad para trabajar en equipo. Disfruto colaborando en proyectos, resolviendo problemas técnicos y contribuyendo al crecimiento y los objetivos del equipo y la organización. Vengo del mundo de los RR.HH., así que sé lo que es liderar, comunicar y entender a las personas detrás de cada producto.",
+    "about.chip1": "🧠 Resolución de problemas",
+    "about.chip2": "🤝 Trabajo en equipo",
+    "about.chip3": "🧭 Liderazgo",
+    "about.chip4": "🎯 Determinación",
+    "stack.title": "Stack & herramientas",
+    "stack.sub": "Con lo que construyo y con lo que trabajo a diario.",
+    "projects.title": "Proyectos",
+    "p1.title": "Proyecto 01",
+    "p1.desc": "Descripción breve: qué problema resuelve y qué hiciste tú.",
+    "p1.link": "Ver proyecto →",
+    "p2.title": "Proyecto 02",
+    "p2.desc": "Descripción breve: qué problema resuelve y qué hiciste tú.",
+    "p2.link": "Ver proyecto →",
+    "p3.title": "Proyecto 03",
+    "p3.desc": "Descripción breve: qué problema resuelve y qué hiciste tú.",
+    "p3.link": "Ver proyecto →",
+    "edu.title": "Formación",
+    "edu.sub": "Aprendizaje continuo.",
+    "edu.1.date": "SEP 2025 – ACTUALIDAD",
+    "edu.1.title": "CFGS Desarrollo de Aplicaciones Web",
+    "edu.1.place": "ESIC University",
+    "edu.2.date": "SEP 2023 – JUN 2025",
+    "edu.2.title": "Doble Grado en Relaciones Laborales y RR.HH.",
+    "edu.2.place": "UNIR – Universidad de La Rioja",
+    "edu.3.date": "CICLO FORMATIVO",
+    "edu.3.place": "Qualitas Europa · Animación de Actividades Físicas y Deportivas",
+    "exp.title": "Experiencia",
+    "exp.sub": "Trato con personas y procesos.",
+    "exp.1.date": "MAY 2024 – MAY 2025",
+    "exp.1.title": "Reclutamiento · ARSEM",
+    "exp.1.desc": "Servicios Energéticos. Fuentes de reclutamiento, cribas, entrevistas.",
+    "exp.2.date": "DIC 2023 – MAY 2024",
+    "exp.2.title": "Agente de seguros · MAPFRE",
+    "exp.2.desc": "Majadahonda. Asesoramiento y atención al cliente.",
+    "exp.3.date": "MAY 2022 – DIC 2023",
+    "exp.3.title": "Notaría de Leganés",
+    "exp.3.desc": "Redacción de documentos, actas y atención a clientes.",
+    "exp.4.date": "NOV 2021 – MAY 2022",
+    "exp.4.title": "Internship · Randstad",
+    "exp.4.desc": "Detección de talento y ajuste perfil-puesto.",
+    "contact.title": "¿Construimos algo juntos?",
+    "contact.sub": "Cuéntame tu proyecto o propuesta. Te respondo en menos de 24 h.",
+    "form.name": "Nombre",
+    "form.name_ph": "Tu nombre",
+    "form.email": "Correo electrónico",
+    "form.message": "Mensaje",
+    "form.msg_ph": "Cuéntame tu idea…",
+    "form.send": "Enviar mensaje",
+    "form.sending": "Enviando…",
+    "form.success": "¡Mensaje enviado! Te respondo pronto 🙌",
+    "form.error": "Algo salió mal. Inténtalo de nuevo.",
+    "walker.idle": "En movimiento",
+    "walk.caption": "Javier Antón · Siempre avanzando",
+    "footer": "© 2026 Javier Antón · Madrid, España"
+  },
+  en: {
+    "nav.about": "About me",
+    "nav.projects": "Projects",
+    "nav.timeline": "Experience",
+    "nav.contact": "Contact",
+    "hero.tag": "Available · immediate start",
+    "hero.greeting": "Hi, I'm",
+    "hero.sub": "I create functional digital solutions and technological environments that improve people's experience.",
+    "hero.cta1": "View projects →",
+    "hero.cta2": "Let's talk",
+    "about.title": "About me",
+    "about.text": "I'm a Web Application Development student. I stand out for my commitment, professional ethics and ability to work as part of a team. I enjoy collaborating on projects, solving technical problems and contributing to the growth and goals of the team and organization. I come from the HR world, so I know what it means to lead, communicate and understand the people behind every product.",
+    "about.chip1": "🧠 Problem solving",
+    "about.chip2": "🤝 Teamwork",
+    "about.chip3": "🧭 Leadership",
+    "about.chip4": "🎯 Determination",
+    "stack.title": "Stack & tools",
+    "stack.sub": "What I build with and work with daily.",
+    "projects.title": "Projects",
+    "p1.title": "Project 01",
+    "p1.desc": "Brief description: what problem it solves and what you did.",
+    "p1.link": "View project →",
+    "p2.title": "Project 02",
+    "p2.desc": "Brief description: what problem it solves and what you did.",
+    "p2.link": "View project →",
+    "p3.title": "Project 03",
+    "p3.desc": "Brief description: what problem it solves and what you did.",
+    "p3.link": "View project →",
+    "edu.title": "Education",
+    "edu.sub": "Continuous learning.",
+    "edu.1.date": "SEP 2025 – PRESENT",
+    "edu.1.title": "Web Application Development (Higher Degree)",
+    "edu.1.place": "ESIC University",
+    "edu.2.date": "SEP 2023 – JUN 2025",
+    "edu.2.title": "Double Degree in Labour Relations & HR",
+    "edu.2.place": "UNIR – Universidad de La Rioja",
+    "edu.3.date": "VOCATIONAL TRAINING",
+    "edu.3.place": "Qualitas Europa · Sports & Physical Activities",
+    "exp.title": "Experience",
+    "exp.sub": "Working with people and processes.",
+    "exp.1.date": "MAY 2024 – MAY 2025",
+    "exp.1.title": "Recruitment · ARSEM",
+    "exp.1.desc": "Energy Services. Recruitment sources, screening, interviews.",
+    "exp.2.date": "DEC 2023 – MAY 2024",
+    "exp.2.title": "Insurance Agent · MAPFRE",
+    "exp.2.desc": "Majadahonda. Advisory and customer service.",
+    "exp.3.date": "MAY 2022 – DEC 2023",
+    "exp.3.title": "Notary Office · Leganés",
+    "exp.3.desc": "Document drafting, minutes and client service.",
+    "exp.4.date": "NOV 2021 – MAY 2022",
+    "exp.4.title": "Internship · Randstad",
+    "exp.4.desc": "Talent detection and profile-position matching.",
+    "contact.title": "Shall we build something together?",
+    "contact.sub": "Tell me about your project or proposal. I'll reply within 24 h.",
+    "form.name": "Name",
+    "form.name_ph": "Your name",
+    "form.email": "Email address",
+    "form.message": "Message",
+    "form.msg_ph": "Tell me your idea…",
+    "form.send": "Send message",
+    "form.sending": "Sending…",
+    "form.success": "Message sent! I'll get back to you soon 🙌",
+    "form.error": "Something went wrong. Please try again.",
+    "walker.idle": "In motion",
+    "walk.caption": "Javier Antón · Always moving forward",
+    "footer": "© 2026 Javier Antón · Madrid, Spain"
+  }
+};
+
+/* Typing words per language */
+var typingWords = {
+  es: ["Desarrollador Web", "Programador Front-end", "Creador de experiencias digitales"],
+  en: ["Web Developer", "Front-end Programmer", "Digital Experience Creator"]
+};
+
+/* Dot labels per language */
+var dotLabels = {
+  es: { hero: "Inicio", sobre: "Sobre mí", stack: "Stack", proyectos: "Proyectos", trayectoria: "Trayectoria", contacto: "Contacto" },
+  en: { hero: "Home", sobre: "About me", stack: "Stack", proyectos: "Projects", trayectoria: "Experience", contacto: "Contact" }
+};
+
+var currentLang = localStorage.getItem("lang") || "es";
+
+function setLanguage(lang) {
+  currentLang = lang;
+  localStorage.setItem("lang", lang);
+  document.documentElement.lang = lang;
+
+  /* Update all data-i18n elements */
+  var texts = i18n[lang];
+  document.querySelectorAll("[data-i18n]").forEach(function (el) {
+    var key = el.getAttribute("data-i18n");
+    if (texts[key] !== undefined) el.textContent = texts[key];
+  });
+
+  /* Show/hide language-specific blocks (code window) */
+  document.querySelectorAll("[data-lang]").forEach(function (el) {
+    if (el.tagName === "SPAN") return; /* skip toggle buttons */
+    el.style.display = el.getAttribute("data-lang") === lang ? "" : "none";
+  });
+
+  /* Update toggle button */
+  document.querySelectorAll(".lang-opt").forEach(function (el) {
+    el.classList.toggle("active", el.getAttribute("data-lang") === lang);
+  });
+
+  /* Update dot aria-labels */
+  var labels = dotLabels[lang];
+  document.querySelectorAll(".dot").forEach(function (dot) {
+    var section = dot.dataset.section;
+    if (labels[section]) dot.setAttribute("aria-label", labels[section]);
+  });
+
+  /* Reset typing effect with new words */
+  words = typingWords[lang];
+  wi = 0;
+  ci = 0;
+  deleting = false;
+}
+
+/* ═══ TYPING EFFECT ═══ */
+var words = typingWords[currentLang];
+var wi = 0, ci = 0, deleting = false;
+var typedEl = document.getElementById("typed");
+
+function tick() {
+  var word = words[wi];
+  typedEl.textContent = word.slice(0, ci);
+  if (!deleting && ci++ === word.length) { deleting = true; return setTimeout(tick, 1600); }
+  if (deleting && ci-- === 0) { deleting = false; wi = (wi + 1) % words.length; }
+  setTimeout(tick, deleting ? 35 : 75);
+}
+tick();
+
+/* ═══ GLOW CURSOR ═══ */
+var glow = document.getElementById("glow");
+addEventListener("pointermove", function (e) {
+  glow.style.left = e.clientX + "px";
+  glow.style.top = e.clientY + "px";
+});
+
+/* ═══ LANGUAGE TOGGLE ═══ */
+document.getElementById("langToggle").addEventListener("click", function () {
+  setLanguage(currentLang === "es" ? "en" : "es");
+});
+
+/* Apply saved language on load */
+if (currentLang !== "es") setLanguage(currentLang);
+
+/* ═══ CODE WINDOW CONTROLS ═══ */
+var codeWin     = document.getElementById("codeWin");
+var winReopen   = document.getElementById("winReopen");
+var winOverlay  = document.getElementById("winOverlay");
+var heroSection = document.getElementById("hero");
+var barBtns     = codeWin.querySelectorAll(".bar i");
+
+/* Red — Close */
+barBtns[0].addEventListener("click", function () {
+  codeWin.classList.remove("maximized", "minimized");
+  winOverlay.classList.remove("active");
+  heroSection.style.zIndex = "";
+  codeWin.classList.add("closed");
+  setTimeout(function () { winReopen.style.display = "grid"; }, 400);
+});
+
+/* Reopen */
+winReopen.addEventListener("click", function () {
+  winReopen.style.display = "none";
+  codeWin.classList.remove("closed");
+});
+
+/* Yellow — Minimize */
+barBtns[1].addEventListener("click", function () {
+  if (codeWin.classList.contains("maximized")) {
+    codeWin.classList.remove("maximized");
+    winOverlay.classList.remove("active");
+    heroSection.style.zIndex = "";
+  }
+  codeWin.classList.toggle("minimized");
+});
+
+/* Green — Maximize */
+barBtns[2].addEventListener("click", function () {
+  codeWin.classList.remove("minimized");
+  codeWin.classList.toggle("maximized");
+  winOverlay.classList.toggle("active");
+  heroSection.style.zIndex = codeWin.classList.contains("maximized") ? "202" : "";
+});
+
+/* Click overlay to exit maximize */
+winOverlay.addEventListener("click", function () {
+  codeWin.classList.remove("maximized");
+  winOverlay.classList.remove("active");
+  heroSection.style.zIndex = "";
+});
+
+/* ═══ HORIZONTAL SCROLL ENGINE ═══ */
+var hWrapper   = document.getElementById("proyectos");
+var hTrack     = document.getElementById("hTrack");
+var hProgress  = document.getElementById("hProgress");
+var slideEl    = document.getElementById("currentSlide");
+var totalEl    = document.getElementById("totalSlides");
+var hintEl     = document.getElementById("scrollHintText");
+var hintBox    = document.getElementById("scrollHint");
+var hPanels    = document.querySelectorAll(".h-panel");
+var numPanels  = hPanels.length;
+
+hWrapper.style.height = (numPanels * 100) + "vh";
+totalEl.textContent = numPanels < 10 ? "0" + numPanels : numPanels;
+
+function updateHorizontalScroll() {
+  var rect = hWrapper.getBoundingClientRect();
+  var scrollRange = hWrapper.offsetHeight - window.innerHeight;
+  if (scrollRange <= 0) return;
+
+  var progress = Math.max(0, Math.min(1, -rect.top / scrollRange));
+  hTrack.style.transform = "translateX(" + (progress * (numPanels - 1) * -100) + "vw)";
+  hProgress.style.width = (progress * 100) + "%";
+
+  var idx = Math.min(numPanels, Math.floor(progress * numPanels) + 1);
+  if (idx < 1) idx = 1;
+  if (idx > numPanels) idx = numPanels;
+  slideEl.textContent = idx < 10 ? "0" + idx : idx;
+
+  var inH = rect.top <= 0 && rect.bottom > window.innerHeight;
+  if (inH) {
+    hintBox.classList.add("horizontal");
+    hintEl.textContent = progress < 0.95 ? "scroll →" : "scroll ↓";
+  } else {
+    hintBox.classList.remove("horizontal");
+    hintEl.textContent = "scroll ↓";
+  }
+}
+
+/* ═══ NAV DOTS ═══ */
+var dots = document.querySelectorAll(".dot");
+var sectionIds = ["hero", "sobre", "stack", "proyectos", "trayectoria", "contacto"];
+
+function updateDots() {
+  var scrollY = window.scrollY + window.innerHeight / 3;
+  var activeId = "hero";
+
+  sectionIds.forEach(function (id) {
+    var el = document.getElementById(id);
+    if (el && el.offsetTop <= scrollY) activeId = id;
+  });
+
+  dots.forEach(function (d) {
+    d.classList.toggle("active", d.dataset.section === activeId);
+  });
+}
+
+dots.forEach(function (dot) {
+  dot.addEventListener("click", function () {
+    var target = document.getElementById(dot.dataset.section);
+    if (target) target.scrollIntoView({ behavior: "smooth" });
+  });
+});
+
+/* ═══ UNIFIED SCROLL LISTENER ═══ */
+var ticking = false;
+addEventListener("scroll", function () {
+  if (!ticking) {
+    requestAnimationFrame(function () {
+      updateHorizontalScroll();
+      updateDots();
+      var nearBottom = window.innerHeight + window.scrollY >= document.body.offsetHeight - 100;
+      hintBox.style.opacity = nearBottom ? "0" : "1";
+      ticking = false;
+    });
+    ticking = true;
+  }
+}, { passive: true });
+
+/* ═══ REVEAL ANIMATIONS ═══ */
+var revealObs = new IntersectionObserver(function (entries) {
+  entries.forEach(function (e) { if (e.isIntersecting) e.target.classList.add("in"); });
+}, { threshold: 0.12 });
+
+document.querySelectorAll(".rv, .stagger").forEach(function (el) { revealObs.observe(el); });
+
+/* ═══ SCROLL-DRIVEN GAIT WALKER ═══ */
+(function () {
+  var card       = document.getElementById("walkerCard");
+  var img        = document.getElementById("walkerImg");
+  var ripples    = document.getElementById("walkerRipples");
+  var progressEl = document.getElementById("walkerProgress");
+  var trackEl    = document.getElementById("walkerTrack");
+  var statusEl   = document.getElementById("walkerStatus");
+  var soundBtn   = document.getElementById("walkerSoundBtn");
+  var btnBack    = document.getElementById("walkerBtnBack");
+  var btnFwd     = document.getElementById("walkerBtnFwd");
+
+  if (!card || !img) return;
+
+  /* State */
+  var progress     = 0.5;  // 0 = far, 1 = close
+  var gaitPhase    = 0;
+  var walkVel      = 0;
+  var targetVel    = 0;
+  var lastStepIdx  = 0;
+  var lastTime     = performance.now();
+  var soundEnabled = false;
+  var audioCtx     = null;
+  var holdDir      = 0;   // button hold: -1 / +1
+  var scrollTimer  = null;
+
+  /* ── Audio footstep synthesis ── */
+  function playFootstep(isRight) {
+    if (!soundEnabled) return;
+    try {
+      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+      if (audioCtx.state === "suspended") audioCtx.resume();
+      var t = audioCtx.currentTime;
+      var osc = audioCtx.createOscillator();
+      var g   = audioCtx.createGain();
+      var f   = audioCtx.createBiquadFilter();
+      osc.type = "triangle";
+      osc.frequency.setValueAtTime(isRight ? 115 : 98, t);
+      osc.frequency.exponentialRampToValueAtTime(32, t + 0.07);
+      f.type = "lowpass"; f.frequency.value = 450;
+      g.gain.setValueAtTime(0.22, t);
+      g.gain.exponentialRampToValueAtTime(0.001, t + 0.075);
+      osc.connect(f); f.connect(g); g.connect(audioCtx.destination);
+      osc.start(t); osc.stop(t + 0.08);
+    } catch(e) {}
+  }
+
+  /* ── Step ripple ── */
+  function spawnRipple(isRight) {
+    if (!ripples) return;
+    var r = document.createElement("span");
+    r.className = "step-ripple";
+    r.style.left   = (isRight ? 58 : 42) + "%";
+    r.style.bottom = (32 + progress * 18) + "px";
+    ripples.appendChild(r);
+    setTimeout(function(){ if (r.parentNode) r.parentNode.removeChild(r); }, 700);
+  }
+
+  /* ── Sound button ── */
+  if (soundBtn) {
+    soundBtn.addEventListener("click", function(e) {
+      e.stopPropagation();
+      soundEnabled = !soundEnabled;
+      soundBtn.textContent = soundEnabled ? "🔊" : "🔇";
+      soundBtn.classList.toggle("active", soundEnabled);
+      if (soundEnabled && !audioCtx)
+        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+    });
+  }
+
+  /* ── Hold buttons (Atrás / Adelante) ── */
+  function setupHold(btn, dir) {
+    if (!btn) return;
+    function start() { holdDir = dir; btn.classList.add("active"); }
+    function stop()  { if (holdDir === dir) holdDir = 0; btn.classList.remove("active"); }
+    btn.addEventListener("mousedown", start);
+    btn.addEventListener("touchstart", function(e){ start(); e.preventDefault(); }, { passive: false });
+    window.addEventListener("mouseup",   stop);
+    window.addEventListener("touchend",  stop);
+  }
+  setupHold(btnBack, -1);
+  setupHold(btnFwd,   1);
+
+  /* ── Track scrub ── */
+  if (trackEl) {
+    trackEl.addEventListener("click", function(e) {
+      var r = trackEl.getBoundingClientRect();
+      progress = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
+    });
+  }
+
+  /* ══════════════════════════════════════
+     SCROLL-BASED WALKING (main control)
+     Scroll right inside card → walk forward
+     Scroll left  inside card → walk backward
+     ══════════════════════════════════════ */
+  card.addEventListener("wheel", function(e) {
+    /* Horizontal wheel (trackpad gesture or horizontal scroll) */
+    var delta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
+    /* Clamp to ±1.8 velocity units */
+    var vel = Math.max(-1.8, Math.min(1.8, delta * 0.055));
+    targetVel = vel;
+    e.preventDefault();
+
+    /* After scrolling stops, ease back to 0 */
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function() { targetVel = 0; }, 200);
+  }, { passive: false });
+
+  /* Touch swipe on the card */
+  var touchStartX = null;
+  card.addEventListener("touchstart", function(e) {
+    if (e.touches.length > 0) touchStartX = e.touches[0].clientX;
+  }, { passive: true });
+
+  card.addEventListener("touchmove", function(e) {
+    if (touchStartX === null || e.touches.length === 0) return;
+    var dx = e.touches[0].clientX - touchStartX;
+    touchStartX = e.touches[0].clientX;
+    targetVel = Math.max(-1.8, Math.min(1.8, dx * 0.12));
+    clearTimeout(scrollTimer);
+    scrollTimer = setTimeout(function() { targetVel = 0; }, 200);
+  }, { passive: true });
+
+  card.addEventListener("touchend", function() {
+    touchStartX = null;
+    targetVel = 0;
+  });
+
+  /* Keyboard arrows when card is visible */
+  window.addEventListener("keydown", function(e) {
+    var r = card.getBoundingClientRect();
+    if (r.top > window.innerHeight || r.bottom < 0) return;
+    if (e.key === "ArrowRight") { targetVel =  1.3; if (btnFwd)  btnFwd.classList.add("active"); }
+    if (e.key === "ArrowLeft")  { targetVel = -1.3; if (btnBack) btnBack.classList.add("active"); }
+  });
+  window.addEventListener("keyup", function(e) {
+    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
+      targetVel = 0;
+      if (btnFwd)  btnFwd.classList.remove("active");
+      if (btnBack) btnBack.classList.remove("active");
+    }
+  });
+
+  /* ── 60fps Gait Loop ── */
+  function loop(now) {
+    var dt = Math.min((now - lastTime) / 1000, 0.1);
+    lastTime = now;
+
+    /* Merge hold-button override */
+    var desired = holdDir !== 0 ? holdDir * 1.4 : targetVel;
+
+    /* Inertia */
+    walkVel += (desired - walkVel) * 0.14;
+    if (Math.abs(walkVel) < 0.008) walkVel = 0;
+
+    if (Math.abs(walkVel) > 0.04) {
+      gaitPhase += walkVel * dt * 9.5;
+      progress  += walkVel * dt * 0.20;
+      progress   = Math.max(0, Math.min(1, progress));
+
+      /* Footstep touchdown */
+      var si = Math.floor(gaitPhase / Math.PI);
+      if (si !== lastStepIdx) {
+        var isR = (Math.abs(si) % 2) === 1;
+        spawnRipple(isR);
+        playFootstep(isR);
+        lastStepIdx = si;
+      }
+
+      /* Status badge */
+      if (statusEl) {
+        if (walkVel > 0.15) {
+          statusEl.textContent = currentLang === "es" ? "Avanzando ►" : "Walking forward ►";
+          if (btnFwd)  btnFwd.classList.add("active");
+          if (btnBack) btnBack.classList.remove("active");
+        } else if (walkVel < -0.15) {
+          statusEl.textContent = currentLang === "es" ? "◄ Retrocediendo" : "◄ Walking back";
+          if (btnBack) btnBack.classList.add("active");
+          if (btnFwd)  btnFwd.classList.remove("active");
+        }
+      }
+    } else {
+      if (statusEl && holdDir === 0) {
+        statusEl.textContent = (i18n[currentLang] && i18n[currentLang]["walker.idle"]) || "Interactivo";
+        if (btnFwd)  btnFwd.classList.remove("active");
+        if (btnBack) btnBack.classList.remove("active");
+      }
+    }
+
+    /* ── Gait kinematics ── */
+    var intensity = Math.min(Math.abs(walkVel), 1.2);
+
+    var stepBob     = -Math.abs(Math.sin(gaitPhase)) * 11 * intensity;
+    var hipSway     =  Math.sin(gaitPhase) * 5.5  * intensity;
+    var roll        =  Math.sin(gaitPhase) * 1.8  * intensity;
+    var lean        = (walkVel >= 0 ? 2.5 : -2.0) * Math.min(Math.abs(walkVel), 1.0);
+    var zoom        = 0.92 + progress * 0.50;  // 0.92 (far) → 1.42 (close)
+    var ty          = (progress * 30) + stepBob;
+
+    img.style.transform =
+      "perspective(900px)" +
+      " rotateX(" + lean + "deg)" +
+      " rotateZ(" + roll + "deg)" +
+      " translate3d(" + hipSway + "px," + ty + "px,0)" +
+      " scale(" + zoom + ")";
+
+    if (progressEl) progressEl.style.width = (progress * 100) + "%";
+
+    requestAnimationFrame(loop);
+  }
+  requestAnimationFrame(loop);
+})();
+
+/* ═══ CONTACT FORM ═══ */
+(function () {
+  var form    = document.getElementById("contactForm");
+  var submit  = document.getElementById("cfSubmit");
+  var plane   = submit && submit.querySelector(".cf-plane");
+  var btnText = submit && submit.querySelector(".cf-submit-text");
+  var success = document.getElementById("cfSuccess");
+  var error   = document.getElementById("cfError");
+
+  if (!form) return;
+
+  /* Extend setLanguage to also handle placeholder i18n */
+  var _origSet = typeof setLanguage === "function" ? setLanguage : null;
+  function patchPlaceholders(lang) {
+    var texts = i18n[lang] || {};
+    document.querySelectorAll("[data-i18n-placeholder]").forEach(function (el) {
+      var key = el.getAttribute("data-i18n-placeholder");
+      if (texts[key]) el.placeholder = texts[key];
+    });
+  }
+  /* Hook into language change */
+  if (_origSet) {
+    setLanguage = function (lang) {
+      _origSet(lang);
+      patchPlaceholders(lang);
+    };
+  }
+  /* Run once on load */
+  patchPlaceholders(currentLang);
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    if (success) success.hidden = true;
+    if (error)   error.hidden   = true;
+
+    /* Animate button */
+    submit.disabled = true;
+    if (btnText) btnText.textContent = (i18n[currentLang] && i18n[currentLang]["form.sending"]) || "Enviando…";
+    if (plane)   plane.style.animation = "planeFly 0.6s ease forwards";
+
+    var data = new FormData(form);
+
+    /* Sync reply-to hidden field with the typed email */
+    var emailInput = document.getElementById("cf_email");
+    var replyTo    = document.getElementById("cf_replyto");
+    if (emailInput && replyTo) replyTo.value = emailInput.value;
+
+    fetch("https://formspree.io/f/javieranton1717@gmail.com", {
+      method: "POST",
+      body: data,
+      headers: { "Accept": "application/json" }
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (json) {
+      if (json.ok) {
+        if (success) success.hidden = false;
+        form.reset();
+        success && success.scrollIntoView({ behavior: "smooth", block: "nearest" });
+      } else {
+        throw new Error(json.error || "Error");
+      }
+    })
+    .catch(function () {
+      if (error) error.hidden = false;
+    })
+    .finally(function () {
+      submit.disabled = false;
+      if (btnText) btnText.textContent = (i18n[currentLang] && i18n[currentLang]["form.send"]) || "Enviar mensaje";
+      if (plane)   plane.style.animation = "";
+    });
+  });
+
+  /* Live field validation highlight */
+  form.querySelectorAll("input, textarea").forEach(function (el) {
+    el.addEventListener("blur", function () {
+      el.classList.toggle("invalid", !el.checkValidity());
+    });
+    el.addEventListener("input", function () {
+      if (el.classList.contains("invalid") && el.checkValidity()) {
+        el.classList.remove("invalid");
+      }
+    });
+  });
+})();
+
+/* Initial calls */
+updateHorizontalScroll();
+updateDots();
+</script>
+</body>
+</html>
