@@ -9,7 +9,20 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<body class="no-scroll">
+
+<!-- ═══ PRELOADER ═══ -->
+<div id="preloader">
+  <div class="preloader-content">
+    <div class="preloader-img-wrapper">
+      <img src="javier_walk.jpg" alt="Javier Antón" class="preloader-img">
+    </div>
+    <div class="preloader-bar">
+      <div class="preloader-fill"></div>
+    </div>
+    <span class="preloader-text mono" data-i18n="preloader.text">Cargando...</span>
+  </div>
+</div>
 
 <!-- Glow cursor -->
 <div class="glow" id="glow"></div>
@@ -74,7 +87,7 @@
       <div class="win" id="codeWin">
         <div class="bar"><i title="Cerrar"></i><i title="Minimizar"></i><i title="Maximizar"></i></div>
 <!-- Código en español -->
-<pre class="mono" data-lang="es"><span class="k">const</span> J avier = {
+<pre class="mono" data-lang="es"><span class="k">const</span> JAVIER = {
   <span class="f">rol</span>: <span class="s">"Desarrollador Web"</span>,
   <span class="f">base</span>: <span class="s">"Madrid, España"</span>,
   <span class="f">estudia</span>: <span class="s">"DAW · ESIC University"</span>,
@@ -153,16 +166,97 @@
     <span class="section-num">02</span>
     <h2 data-i18n="stack.title">Stack &amp; herramientas</h2>
     <p class="sub" style="margin-bottom:34px" data-i18n="stack.sub">Con lo que construyo y con lo que trabajo a diario.</p>
-    <div class="chips stagger">
-      <span class="chip mono">HTML5</span>
-      <span class="chip mono">CSS3</span>
-      <span class="chip mono">JavaScript</span>
-      <span class="chip mono">Java</span>
-      <span class="chip mono">SQL</span>
-      <span class="chip mono">VS Code</span>
-      <span class="chip mono">IntelliJ IDEA</span>
-      <span class="chip mono">Canva</span>
-      <span class="chip mono">Microsoft Office</span>
+    <div class="skills-grid stagger">
+      <!-- HTML5 -->
+      <div class="skill-bar-container">
+        <div class="skill-info">
+          <span class="skill-name mono"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/html5/html5-original.svg" width="16" height="16" alt="HTML5"> HTML5</span>
+          <span class="skill-pct mono">90%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" style="width: 90%;"></div>
+        </div>
+      </div>
+      <!-- CSS3 -->
+      <div class="skill-bar-container">
+        <div class="skill-info">
+          <span class="skill-name mono"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/css3/css3-original.svg" width="16" height="16" alt="CSS3"> CSS3</span>
+          <span class="skill-pct mono">90%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" style="width: 90%;"></div>
+        </div>
+      </div>
+      <!-- JavaScript -->
+      <div class="skill-bar-container">
+        <div class="skill-info">
+          <span class="skill-name mono"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/javascript/javascript-original.svg" width="16" height="16" alt="JavaScript"> JavaScript</span>
+          <span class="skill-pct mono">90%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" style="width: 90%;"></div>
+        </div>
+      </div>
+      <!-- Java -->
+      <div class="skill-bar-container">
+        <div class="skill-info">
+          <span class="skill-name mono"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/java/java-original.svg" width="16" height="16" alt="Java"> Java</span>
+          <span class="skill-pct mono">90%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" style="width: 90%;"></div>
+        </div>
+      </div>
+      <!-- SQL -->
+      <div class="skill-bar-container">
+        <div class="skill-info">
+          <span class="skill-name mono"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/sqldeveloper/sqldeveloper-original.svg" width="16" height="16" alt="SQL"> SQL</span>
+          <span class="skill-pct mono">90%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" style="width: 90%;"></div>
+        </div>
+      </div>
+      <!-- VS Code -->
+      <div class="skill-bar-container">
+        <div class="skill-info">
+          <span class="skill-name mono"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/vscode/vscode-original.svg" width="16" height="16" alt="VS Code"> VS Code</span>
+          <span class="skill-pct mono">90%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" style="width: 90%;"></div>
+        </div>
+      </div>
+      <!-- IntelliJ IDEA -->
+      <div class="skill-bar-container">
+        <div class="skill-info">
+          <span class="skill-name mono"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/intellij/intellij-original.svg" width="16" height="16" alt="IntelliJ IDEA"> IntelliJ IDEA</span>
+          <span class="skill-pct mono">90%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" style="width: 90%;"></div>
+        </div>
+      </div>
+      <!-- Canva -->
+      <div class="skill-bar-container">
+        <div class="skill-info">
+          <span class="skill-name mono"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/canva/canva-original.svg" width="16" height="16" alt="Canva"> Canva</span>
+          <span class="skill-pct mono">90%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" style="width: 90%;"></div>
+        </div>
+      </div>
+      <!-- Microsoft Office -->
+      <div class="skill-bar-container">
+        <div class="skill-info">
+          <span class="skill-name mono"><img src="https://cdn.jsdelivr.net/gh/devicons/devicon@latest/icons/windows8/windows8-original.svg" width="16" height="16" alt="Microsoft Office"> Microsoft Office</span>
+          <span class="skill-pct mono">90%</span>
+        </div>
+        <div class="skill-track">
+          <div class="skill-fill" style="width: 90%;"></div>
+        </div>
+      </div>
     </div>
   </div>
 </section>
@@ -377,10 +471,24 @@
 
 <script>
 /* ═══════════════════════════════════════════
+   PRELOADER
+   ═══════════════════════════════════════════ */
+window.addEventListener("load", function() {
+  setTimeout(function() {
+    var preloader = document.getElementById("preloader");
+    if (preloader) {
+      preloader.classList.add("hidden");
+      document.body.classList.remove("no-scroll");
+    }
+  }, 1800); // Wait for the loading bar animation to finish
+});
+
+/* ═══════════════════════════════════════════
    TRANSLATIONS
    ═══════════════════════════════════════════ */
 var i18n = {
   es: {
+    "preloader.text": "CARGANDO...",
     "nav.about": "Sobre mí",
     "nav.projects": "Proyectos",
     "nav.timeline": "Trayectoria",
@@ -448,6 +556,7 @@ var i18n = {
     "footer": "© 2026 Javier Antón · Madrid, España"
   },
   en: {
+    "preloader.text": "LOADING...",
     "nav.about": "About me",
     "nav.projects": "Projects",
     "nav.timeline": "Experience",
