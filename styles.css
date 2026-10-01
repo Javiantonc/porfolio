@@ -101,7 +101,7 @@ body.no-scroll {
 .preloader-img-wrapper {
   width: 110px;
   height: 110px;
-  border-radius: 50%;
+  border-radius: 20px;
   padding: 4px;
   background: linear-gradient(135deg, var(--a), var(--b));
   animation: pulseImg 1.5s infinite alternate ease-in-out;
@@ -110,9 +110,10 @@ body.no-scroll {
 .preloader-img {
   width: 100%;
   height: 100%;
-  border-radius: 50%;
-  object-fit: cover;
+  border-radius: 16px;
+  object-fit: contain;
   border: 3px solid var(--bg);
+  background: var(--card);
 }
 
 .preloader-bar {
