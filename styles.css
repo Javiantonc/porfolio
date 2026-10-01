@@ -488,17 +488,17 @@ nav a:hover {
   height: auto;
   transform: translate(-50%, -50%);
   object-fit: cover;
-  z-index: -2;
-  opacity: 0.18; /* Subtle background */
+  z-index: 0;
+  opacity: 0.4; /* Aumentado para que sea muy visible */
   pointer-events: none;
 }
 
 .video-overlay {
   position: absolute;
   inset: 0;
-  background: linear-gradient(to bottom, var(--bg) 0%, transparent 15%, transparent 85%, var(--bg) 100%),
-              radial-gradient(circle at center, transparent 0%, var(--bg) 100%);
-  z-index: -1;
+  background: linear-gradient(to bottom, var(--bg) 0%, transparent 20%, transparent 80%, var(--bg) 100%);
+  background-color: color-mix(in srgb, var(--bg) 50%, transparent); /* Tintado base */
+  z-index: 1;
   pointer-events: none;
 }
 
