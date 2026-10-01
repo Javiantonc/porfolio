@@ -78,24 +78,14 @@ body.no-scroll {
 #preloader {
   position: fixed;
   inset: 0;
-  background-color: var(--bg);
+  background: 
+    linear-gradient(rgba(10, 12, 20, 0.8), rgba(10, 12, 20, 0.8)),
+    url("cafe.jpg") center/cover no-repeat;
   z-index: 99999;
   display: flex;
   justify-content: center;
   align-items: center;
   transition: opacity 0.8s ease, visibility 0.8s ease;
-}
-
-#preloader::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image: linear-gradient(var(--bd) 1px, transparent 1px),
-                    linear-gradient(90deg, var(--bd) 1px, transparent 1px);
-  background-size: 80px 80px;
-  opacity: 0.18;
-  z-index: -1;
 }
 
 #preloader.hidden {
