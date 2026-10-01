@@ -71,8 +71,12 @@
 <!-- ═══════════════════════════════════════════
      HERO
      ═══════════════════════════════════════════ -->
-<section id="hero" class="panel">
-  <div class="hero-grid">
+<section id="hero" class="panel has-bg-video">
+  <div class="video-overlay"></div>
+  <video autoplay loop muted playsinline class="bg-video">
+    <source src="teclado.mp4" type="video/mp4">
+  </video>
+  <div class="hero-grid relative-z">
     <div>
       <span class="tag mono"><i></i> <span data-i18n="hero.tag">Disponible · incorporación inmediata</span></span>
       <h1><span data-i18n="hero.greeting">Hola, soy</span><br><span class="grad">Javier Antón</span></h1>
