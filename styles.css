@@ -80,7 +80,7 @@ body.no-scroll {
   inset: 0;
   background: 
     linear-gradient(rgba(10, 12, 20, 0.8), rgba(10, 12, 20, 0.8)),
-    url("cafe.jpg") center/cover no-repeat;
+    url("fondo_codigo.jpg") center/cover no-repeat;
   z-index: 99999;
   display: flex;
   justify-content: center;
