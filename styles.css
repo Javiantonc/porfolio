@@ -1403,11 +1403,20 @@ h2::before {
   font-size: 80px;
   box-shadow: 0 30px 60px -20px color-mix(in srgb, var(--a) 30%, transparent);
   transition: 0.4s;
+  overflow: hidden;
 }
 
 .project-visual:hover {
   transform: scale(1.02);
   box-shadow: 0 40px 80px -20px color-mix(in srgb, var(--a) 40%, transparent);
+}
+
+.project-img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 30px;
+  border-radius: 20px;
 }
 
 .project-info .project-num {
