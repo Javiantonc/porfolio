@@ -136,25 +136,28 @@
         </div>
       </div>
       <div class="about-walker-col">
-        <div class="walk-anim-card">
+        <div class="walk-anim-card" id="vanishCard" title="Haz clic para reiniciar la animación">
           <div class="walk-anim-viewport">
-            <img src="javier_walk.jpg" alt="Javier Antón" class="walk-anim-img" draggable="false" />
-            <!-- Floor shadow that pulses with steps -->
-            <div class="walk-floor-shadow"></div>
-            <!-- Step ripple elements -->
-            <div class="walk-ripple walk-ripple-l"></div>
-            <div class="walk-ripple walk-ripple-r"></div>
+            <!-- Horizon spark at vanishing point -->
+            <div class="vanish-spark"></div>
+
+            <img src="javier_walk.jpg" alt="Javier Antón" class="vanish-img" id="vanishImg" draggable="false" />
+
+            <!-- Floor shadow that shrinks in sync -->
+            <div class="vanish-floor-shadow"></div>
+
             <!-- Gradient fade at bottom -->
             <div class="walk-fade-bottom"></div>
+
             <!-- Badge -->
             <div class="walk-badge mono">
               <span class="walk-badge-dot"></span>
-              <span data-i18n="walker.idle">Interactivo</span>
+              <span data-i18n="walker.idle">Perspectiva</span>
             </div>
           </div>
           <div class="walk-anim-footer mono">
-            <span class="walk-foot-icon">👟</span>
-            <span data-i18n="walk.caption">Javier Antón · Caminando hacia el futuro</span>
+            <span class="vanish-icon">✦</span>
+            <span data-i18n="walk.caption">Javier Antón · Siempre en constante evolución</span>
           </div>
         </div>
       </div>
@@ -580,8 +583,8 @@ var i18n = {
     "form.sending": "Enviando…",
     "form.success": "¡Mensaje enviado! Te respondo pronto 🙌",
     "form.error": "Algo salió mal. Inténtalo de nuevo.",
-    "walker.idle": "En movimiento",
-    "walk.caption": "Javier Antón · Siempre avanzando",
+    "walker.idle": "Perspectiva",
+    "walk.caption": "Javier Antón · Siempre en constante evolución",
     "footer": "© 2026 Javier Antón · Madrid, España"
   },
   en: {
@@ -651,8 +654,8 @@ var i18n = {
     "form.sending": "Sending…",
     "form.success": "Message sent! I'll get back to you soon 🙌",
     "form.error": "Something went wrong. Please try again.",
-    "walker.idle": "In motion",
-    "walk.caption": "Javier Antón · Always moving forward",
+    "walker.idle": "Perspective",
+    "walk.caption": "Javier Antón · Always evolving forward",
     "footer": "© 2026 Javier Antón · Madrid, Spain"
   }
 };
@@ -869,218 +872,18 @@ var revealObs = new IntersectionObserver(function (entries) {
 
 document.querySelectorAll(".rv, .stagger").forEach(function (el) { revealObs.observe(el); });
 
-/* ═══ SCROLL-DRIVEN GAIT WALKER ═══ */
+/* ═══ VANISH ANIMATION INTERACTION ═══ */
 (function () {
-  var card       = document.getElementById("walkerCard");
-  var img        = document.getElementById("walkerImg");
-  var ripples    = document.getElementById("walkerRipples");
-  var progressEl = document.getElementById("walkerProgress");
-  var trackEl    = document.getElementById("walkerTrack");
-  var statusEl   = document.getElementById("walkerStatus");
-  var soundBtn   = document.getElementById("walkerSoundBtn");
-  var btnBack    = document.getElementById("walkerBtnBack");
-  var btnFwd     = document.getElementById("walkerBtnFwd");
-
+  var card = document.getElementById("vanishCard");
+  var img  = document.getElementById("vanishImg");
   if (!card || !img) return;
 
-  /* State */
-  var progress     = 0.5;  // 0 = far, 1 = close
-  var gaitPhase    = 0;
-  var walkVel      = 0;
-  var targetVel    = 0;
-  var lastStepIdx  = 0;
-  var lastTime     = performance.now();
-  var soundEnabled = false;
-  var audioCtx     = null;
-  var holdDir      = 0;   // button hold: -1 / +1
-  var scrollTimer  = null;
-
-  /* ── Audio footstep synthesis ── */
-  function playFootstep(isRight) {
-    if (!soundEnabled) return;
-    try {
-      if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      if (audioCtx.state === "suspended") audioCtx.resume();
-      var t = audioCtx.currentTime;
-      var osc = audioCtx.createOscillator();
-      var g   = audioCtx.createGain();
-      var f   = audioCtx.createBiquadFilter();
-      osc.type = "triangle";
-      osc.frequency.setValueAtTime(isRight ? 115 : 98, t);
-      osc.frequency.exponentialRampToValueAtTime(32, t + 0.07);
-      f.type = "lowpass"; f.frequency.value = 450;
-      g.gain.setValueAtTime(0.22, t);
-      g.gain.exponentialRampToValueAtTime(0.001, t + 0.075);
-      osc.connect(f); f.connect(g); g.connect(audioCtx.destination);
-      osc.start(t); osc.stop(t + 0.08);
-    } catch(e) {}
-  }
-
-  /* ── Step ripple ── */
-  function spawnRipple(isRight) {
-    if (!ripples) return;
-    var r = document.createElement("span");
-    r.className = "step-ripple";
-    r.style.left   = (isRight ? 58 : 42) + "%";
-    r.style.bottom = (32 + progress * 18) + "px";
-    ripples.appendChild(r);
-    setTimeout(function(){ if (r.parentNode) r.parentNode.removeChild(r); }, 700);
-  }
-
-  /* ── Sound button ── */
-  if (soundBtn) {
-    soundBtn.addEventListener("click", function(e) {
-      e.stopPropagation();
-      soundEnabled = !soundEnabled;
-      soundBtn.textContent = soundEnabled ? "🔊" : "🔇";
-      soundBtn.classList.toggle("active", soundEnabled);
-      if (soundEnabled && !audioCtx)
-        audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    });
-  }
-
-  /* ── Hold buttons (Atrás / Adelante) ── */
-  function setupHold(btn, dir) {
-    if (!btn) return;
-    function start() { holdDir = dir; btn.classList.add("active"); }
-    function stop()  { if (holdDir === dir) holdDir = 0; btn.classList.remove("active"); }
-    btn.addEventListener("mousedown", start);
-    btn.addEventListener("touchstart", function(e){ start(); e.preventDefault(); }, { passive: false });
-    window.addEventListener("mouseup",   stop);
-    window.addEventListener("touchend",  stop);
-  }
-  setupHold(btnBack, -1);
-  setupHold(btnFwd,   1);
-
-  /* ── Track scrub ── */
-  if (trackEl) {
-    trackEl.addEventListener("click", function(e) {
-      var r = trackEl.getBoundingClientRect();
-      progress = Math.max(0, Math.min(1, (e.clientX - r.left) / r.width));
-    });
-  }
-
-  /* ══════════════════════════════════════
-     SCROLL-BASED WALKING (main control)
-     Scroll right inside card → walk forward
-     Scroll left  inside card → walk backward
-     ══════════════════════════════════════ */
-  card.addEventListener("wheel", function(e) {
-    /* Horizontal wheel (trackpad gesture or horizontal scroll) */
-    var delta = e.deltaX !== 0 ? e.deltaX : e.deltaY;
-    /* Clamp to ±1.8 velocity units */
-    var vel = Math.max(-1.8, Math.min(1.8, delta * 0.055));
-    targetVel = vel;
-    e.preventDefault();
-
-    /* After scrolling stops, ease back to 0 */
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(function() { targetVel = 0; }, 200);
-  }, { passive: false });
-
-  /* Touch swipe on the card */
-  var touchStartX = null;
-  card.addEventListener("touchstart", function(e) {
-    if (e.touches.length > 0) touchStartX = e.touches[0].clientX;
-  }, { passive: true });
-
-  card.addEventListener("touchmove", function(e) {
-    if (touchStartX === null || e.touches.length === 0) return;
-    var dx = e.touches[0].clientX - touchStartX;
-    touchStartX = e.touches[0].clientX;
-    targetVel = Math.max(-1.8, Math.min(1.8, dx * 0.12));
-    clearTimeout(scrollTimer);
-    scrollTimer = setTimeout(function() { targetVel = 0; }, 200);
-  }, { passive: true });
-
-  card.addEventListener("touchend", function() {
-    touchStartX = null;
-    targetVel = 0;
+  // Clicking the card smoothly resets and replays the vanish animation
+  card.addEventListener("click", function () {
+    img.style.animation = "none";
+    void img.offsetWidth; // trigger reflow
+    img.style.animation = "";
   });
-
-  /* Keyboard arrows when card is visible */
-  window.addEventListener("keydown", function(e) {
-    var r = card.getBoundingClientRect();
-    if (r.top > window.innerHeight || r.bottom < 0) return;
-    if (e.key === "ArrowRight") { targetVel =  1.3; if (btnFwd)  btnFwd.classList.add("active"); }
-    if (e.key === "ArrowLeft")  { targetVel = -1.3; if (btnBack) btnBack.classList.add("active"); }
-  });
-  window.addEventListener("keyup", function(e) {
-    if (e.key === "ArrowRight" || e.key === "ArrowLeft") {
-      targetVel = 0;
-      if (btnFwd)  btnFwd.classList.remove("active");
-      if (btnBack) btnBack.classList.remove("active");
-    }
-  });
-
-  /* ── 60fps Gait Loop ── */
-  function loop(now) {
-    var dt = Math.min((now - lastTime) / 1000, 0.1);
-    lastTime = now;
-
-    /* Merge hold-button override */
-    var desired = holdDir !== 0 ? holdDir * 1.4 : targetVel;
-
-    /* Inertia */
-    walkVel += (desired - walkVel) * 0.14;
-    if (Math.abs(walkVel) < 0.008) walkVel = 0;
-
-    if (Math.abs(walkVel) > 0.04) {
-      gaitPhase += walkVel * dt * 9.5;
-      progress  += walkVel * dt * 0.20;
-      progress   = Math.max(0, Math.min(1, progress));
-
-      /* Footstep touchdown */
-      var si = Math.floor(gaitPhase / Math.PI);
-      if (si !== lastStepIdx) {
-        var isR = (Math.abs(si) % 2) === 1;
-        spawnRipple(isR);
-        playFootstep(isR);
-        lastStepIdx = si;
-      }
-
-      /* Status badge */
-      if (statusEl) {
-        if (walkVel > 0.15) {
-          statusEl.textContent = currentLang === "es" ? "Avanzando ►" : "Walking forward ►";
-          if (btnFwd)  btnFwd.classList.add("active");
-          if (btnBack) btnBack.classList.remove("active");
-        } else if (walkVel < -0.15) {
-          statusEl.textContent = currentLang === "es" ? "◄ Retrocediendo" : "◄ Walking back";
-          if (btnBack) btnBack.classList.add("active");
-          if (btnFwd)  btnFwd.classList.remove("active");
-        }
-      }
-    } else {
-      if (statusEl && holdDir === 0) {
-        statusEl.textContent = (i18n[currentLang] && i18n[currentLang]["walker.idle"]) || "Interactivo";
-        if (btnFwd)  btnFwd.classList.remove("active");
-        if (btnBack) btnBack.classList.remove("active");
-      }
-    }
-
-    /* ── Gait kinematics ── */
-    var intensity = Math.min(Math.abs(walkVel), 1.2);
-
-    var stepBob     = -Math.abs(Math.sin(gaitPhase)) * 11 * intensity;
-    var hipSway     =  Math.sin(gaitPhase) * 5.5  * intensity;
-    var roll        =  Math.sin(gaitPhase) * 1.8  * intensity;
-    var lean        = (walkVel >= 0 ? 2.5 : -2.0) * Math.min(Math.abs(walkVel), 1.0);
-    var zoom        = 0.92 + progress * 0.50;  // 0.92 (far) → 1.42 (close)
-    var ty          = (progress * 30) + stepBob;
-
-    img.style.transform =
-      "perspective(900px)" +
-      " rotateX(" + lean + "deg)" +
-      " rotateZ(" + roll + "deg)" +
-      " translate3d(" + hipSway + "px," + ty + "px,0)" +
-      " scale(" + zoom + ")";
-
-    if (progressEl) progressEl.style.width = (progress * 100) + "%";
-
-    requestAnimationFrame(loop);
-  }
-  requestAnimationFrame(loop);
 })();
 
 /* ═══ CONTACT FORM ═══ */

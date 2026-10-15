@@ -918,7 +918,7 @@ h2::before {
 }
 
 /* ═══════════════════════════════════════════
-   AUTO-WALKING ANIMATION CARD
+   PERSPECTIVE VANISH ANIMATION CARD
    ═══════════════════════════════════════════ */
 
 /* Main card container */
@@ -930,13 +930,15 @@ h2::before {
   border-radius: 24px;
   overflow: hidden;
   box-shadow: 0 24px 60px -20px var(--a);
-  transition: box-shadow 0.3s, border-color 0.3s;
+  transition: box-shadow 0.3s, border-color 0.3s, transform 0.3s;
   user-select: none;
+  cursor: pointer;
 }
 
 .walk-anim-card:hover {
   border-color: var(--a);
   box-shadow: 0 32px 80px -20px var(--a);
+  transform: translateY(-3px);
 }
 
 /* Viewport clips the animation */
@@ -944,103 +946,175 @@ h2::before {
   position: relative;
   height: 440px;
   overflow: hidden;
-  background: #0a0c14;
+  background: radial-gradient(circle at 50% 48%, #141c2c 0%, #070910 85%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-/* ── Main image — the walk animation ── */
-.walk-anim-img {
+/* Horizon vanishing point spark */
+.vanish-spark {
+  position: absolute;
+  top: 48%;
+  left: 50%;
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 0 16px 4px var(--a), 0 0 32px 8px color-mix(in srgb, var(--a) 60%, #fff);
+  pointer-events: none;
+  z-index: 1;
+  animation: sparkPulse 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+
+@keyframes sparkPulse {
+  0%, 65% {
+    transform: scale(0);
+    opacity: 0;
+  }
+  75% {
+    transform: scale(1.6);
+    opacity: 0.9;
+  }
+  82% {
+    transform: scale(2.8);
+    opacity: 1;
+    box-shadow: 0 0 24px 8px var(--a), 0 0 48px 16px #fff;
+  }
+  88% {
+    transform: scale(3.5);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(0);
+    opacity: 0;
+  }
+}
+
+/* ── Main image — Smooth Shrink & Disappear Into Perspective ── */
+.vanish-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 8%;
-  transform-origin: center bottom;
-  will-change: transform;
+  transform-origin: 50% 50%;
+  will-change: transform, opacity, filter;
   pointer-events: none;
-  /* Composite: zoom + bob + sway all layered */
-  animation:
-    walkApproach 3.2s cubic-bezier(0.4, 0, 0.3, 1) infinite,
-    walkBob      0.8s ease-in-out infinite,
-    walkSway     1.6s ease-in-out infinite;
+  z-index: 2;
+  animation: vanishShrink 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-/* Slow down on hover / respect reduced motion */
-.walk-anim-card:hover .walk-anim-img {
+.walk-anim-card:hover .vanish-img {
   animation-play-state: paused;
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .walk-anim-img { animation: none; }
+  .vanish-img, .vanish-spark, .vanish-floor-shadow {
+    animation: none !important;
+  }
 }
 
-/* 1. Perspective zoom: person walks from far → close, then instantly resets */
-@keyframes walkApproach {
-  0%   { transform: scale(0.78) translateY(18px); }
-  85%  { transform: scale(1.38) translateY(-14px); opacity: 1; }
-  92%  { transform: scale(1.48) translateY(-18px); opacity: 0; }
-  93%  { transform: scale(0.78) translateY(18px);  opacity: 0; }
-  100% { transform: scale(0.78) translateY(18px);  opacity: 1; }
+/* Shrink until disappearing into vanishing point */
+@keyframes vanishShrink {
+  0% {
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    filter: blur(0px) brightness(1);
+  }
+  24% {
+    /* Clear full view */
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    filter: blur(0px) brightness(1);
+  }
+  42% {
+    /* Receding smoothly into the street */
+    transform: scale(0.68) translateY(-14px);
+    opacity: 0.95;
+    filter: blur(0.2px) brightness(1.05);
+  }
+  62% {
+    /* Getting much smaller */
+    transform: scale(0.32) translateY(-28px);
+    opacity: 0.8;
+    filter: blur(0.6px) brightness(1.15);
+  }
+  76% {
+    /* Tiny distant figure */
+    transform: scale(0.09) translateY(-38px);
+    opacity: 0.4;
+    filter: blur(1.2px) brightness(1.3);
+  }
+  82% {
+    /* Vanishes completely into perspective point */
+    transform: scale(0.005) translateY(-42px);
+    opacity: 0;
+    filter: blur(2px) brightness(1.6);
+  }
+  88% {
+    /* Invisible reset phase */
+    transform: scale(1.06) translateY(4px);
+    opacity: 0;
+    filter: blur(4px);
+  }
+  95% {
+    /* Softly reappearing */
+    transform: scale(1.01) translateY(1px);
+    opacity: 0.85;
+    filter: blur(0.4px);
+  }
+  100% {
+    /* Back to full size */
+    transform: scale(1) translateY(0);
+    opacity: 1;
+    filter: blur(0px) brightness(1);
+  }
 }
 
-/* 2. Inverted-pendulum step bounce: body dips on each footfall */
-@keyframes walkBob {
-  0%,  100% { margin-top: 0px; }
-  25%        { margin-top: -7px; }
-  50%        { margin-top: 0px; }
-  75%        { margin-top: -7px; }
-}
-
-/* 3. Lateral body sway: natural hip/shoulder swing */
-@keyframes walkSway {
-  0%,  100% { margin-left: 0px; }
-  25%        { margin-left: -5px; }
-  75%        { margin-left:  5px; }
-}
-
-/* Floor shadow that pulses with each step */
-.walk-floor-shadow {
+/* Floor shadow that shrinks in sync with the subject */
+.vanish-floor-shadow {
   position: absolute;
-  bottom: 0;
+  bottom: 8px;
   left: 50%;
   transform: translateX(-50%);
-  width: 60%;
-  height: 28px;
-  background: radial-gradient(ellipse at center, rgba(0,0,0,0.35) 0%, transparent 75%);
+  width: 58%;
+  height: 24px;
+  background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0.45) 0%, transparent 75%);
   pointer-events: none;
-  animation: shadowPulse 0.8s ease-in-out infinite;
+  z-index: 2;
+  animation: shadowContract 5.5s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-@keyframes shadowPulse {
-  0%,  100% { transform: translateX(-50%) scaleX(0.70); opacity: 0.5; }
-  50%        { transform: translateX(-50%) scaleX(1.10); opacity: 0.9; }
-}
-
-/* Footstep ripples – left & right alternate */
-.walk-ripple {
-  position: absolute;
-  bottom: 28px;
-  width: 44px;
-  height: 16px;
-  border-radius: 50%;
-  border: 1.5px solid var(--a);
-  background: radial-gradient(ellipse, color-mix(in srgb, var(--a) 30%, transparent), transparent 70%);
-  pointer-events: none;
-  opacity: 0;
-}
-
-.walk-ripple-l { left: 38%; animation: rippleL 1.6s ease-out infinite; }
-.walk-ripple-r { left: 52%; animation: rippleR 1.6s ease-out 0.8s infinite; }
-
-@keyframes rippleL {
-  0%   { opacity: 0; transform: scale(0.4); }
-  15%  { opacity: 1; transform: scale(0.8); }
-  60%  { opacity: 0; transform: scale(2.0); }
-  100% { opacity: 0; transform: scale(2.0); }
-}
-@keyframes rippleR {
-  0%   { opacity: 0; transform: scale(0.4); }
-  15%  { opacity: 1; transform: scale(0.8); }
-  60%  { opacity: 0; transform: scale(2.0); }
-  100% { opacity: 0; transform: scale(2.0); }
+@keyframes shadowContract {
+  0%, 24% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.75;
+  }
+  42% {
+    transform: translateX(-50%) scale(0.68) translateY(-10px);
+    opacity: 0.6;
+  }
+  62% {
+    transform: translateX(-50%) scale(0.32) translateY(-22px);
+    opacity: 0.35;
+  }
+  76% {
+    transform: translateX(-50%) scale(0.09) translateY(-30px);
+    opacity: 0.15;
+  }
+  82%, 88% {
+    transform: translateX(-50%) scale(0.01) translateY(-34px);
+    opacity: 0;
+  }
+  95% {
+    transform: translateX(-50%) scale(0.95);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateX(-50%) scale(1);
+    opacity: 0.75;
+  }
 }
 
 /* Bottom fade gradient */
@@ -1049,10 +1123,10 @@ h2::before {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 80px;
+  height: 75px;
   background: linear-gradient(to top, var(--card), transparent);
   pointer-events: none;
-  z-index: 2;
+  z-index: 3;
 }
 
 /* Status badge top-left */
@@ -1060,9 +1134,9 @@ h2::before {
   position: absolute;
   top: 14px;
   left: 14px;
-  padding: 5px 11px;
+  padding: 5px 12px;
   border-radius: 99px;
-  background: color-mix(in srgb, var(--card) 80%, transparent);
+  background: color-mix(in srgb, var(--card) 85%, transparent);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border: 1px solid var(--bd);
@@ -1071,21 +1145,21 @@ h2::before {
   align-items: center;
   gap: 6px;
   color: var(--tx);
-  z-index: 3;
+  z-index: 4;
 }
 
 .walk-badge-dot {
   width: 7px;
   height: 7px;
   border-radius: 50%;
-  background: #22c55e;
-  box-shadow: 0 0 8px #22c55e;
-  animation: walkPulse 0.8s ease-in-out infinite;
+  background: var(--a);
+  box-shadow: 0 0 8px var(--a);
+  animation: badgeGlow 2s ease-in-out infinite;
 }
 
-@keyframes walkPulse {
-  0%, 100% { transform: scale(1);   opacity: 1; }
-  50%       { transform: scale(1.5); opacity: 0.5; }
+@keyframes badgeGlow {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.6; }
 }
 
 /* Footer strip */
@@ -1100,216 +1174,17 @@ h2::before {
   background: var(--card);
 }
 
-.walk-foot-icon {
-  animation: footWalk 0.8s ease-in-out infinite alternate;
+.vanish-icon {
   display: inline-block;
-}
-
-@keyframes footWalk {
-  from { transform: rotate(-15deg) translateY(0px); }
-  to   { transform: rotate(15deg)  translateY(-3px); }
-}
-
-
-.walker-card {
-  width: 100%;
-  max-width: 330px;
-  background: var(--card);
-  border: 1px solid var(--bd);
-  border-radius: 24px;
-  overflow: hidden;
-  box-shadow: 0 24px 60px -25px var(--a);
-  transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
-  cursor: ew-resize;
-  user-select: none;
-  -webkit-user-select: none;
-}
-
-.walker-card:hover {
-  border-color: var(--a);
-  box-shadow: 0 30px 70px -20px var(--a);
-  transform: translateY(-4px);
-}
-
-.walker-viewport {
-  position: relative;
-  height: 430px;
-  overflow: hidden;
-  background: var(--code);
-}
-
-.walker-img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  object-position: center 15%;
-  transform-origin: center bottom;
-  will-change: transform;
-  pointer-events: none;
-}
-
-.walker-shadow {
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  height: 70px;
-  background: linear-gradient(to top, var(--card), transparent);
-  pointer-events: none;
-}
-
-.walker-badge {
-  position: absolute;
-  top: 14px;
-  left: 14px;
-  padding: 6px 12px;
-  border-radius: 99px;
-  background: color-mix(in srgb, var(--card) 85%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border: 1px solid var(--bd);
-  font-size: 11px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
-  color: var(--tx);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-}
-
-.walker-badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--a);
-  box-shadow: 0 0 8px var(--a);
-  animation: walkerPulse 1.8s ease-in-out infinite;
-}
-
-@keyframes walkerPulse {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50% { transform: scale(1.4); opacity: 0.6; }
-}
-
-.walker-ripples {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-  z-index: 1;
-}
-
-.step-ripple {
-  position: absolute;
-  width: 46px;
-  height: 18px;
-  transform: translate(-50%, -50%);
-  border-radius: 50%;
-  border: 1.5px solid var(--a);
-  background: radial-gradient(ellipse at center, color-mix(in srgb, var(--a) 35%, transparent), transparent 70%);
-  box-shadow: 0 0 14px var(--a);
-  animation: stepRippleAnim 0.7s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
-  pointer-events: none;
-}
-
-@keyframes stepRippleAnim {
-  0% {
-    opacity: 0.95;
-    transform: translate(-50%, -50%) scale(0.3);
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(2.3);
-  }
-}
-
-.walker-sound-btn {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  border: 1px solid var(--bd);
-  background: color-mix(in srgb, var(--card) 85%, transparent);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  cursor: pointer;
-  display: grid;
-  place-items: center;
-  font-size: 13px;
-  transition: 0.25s;
-  z-index: 3;
-}
-
-.walker-sound-btn:hover,
-.walker-sound-btn.active {
-  border-color: var(--a);
-  transform: scale(1.1);
-  box-shadow: 0 0 12px var(--a);
-}
-
-.walker-footer {
-  padding: 14px 18px 18px;
-  background: var(--card);
-}
-
-.walker-ctrls {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
-}
-
-.walker-step-btn {
-  padding: 6px 12px;
-  border-radius: 8px;
-  border: 1px solid var(--bd);
-  background: var(--bg);
-  color: var(--tx);
-  font-size: 11px;
-  font-family: "JetBrains Mono", monospace;
-  cursor: pointer;
-  display: inline-flex;
-  align-items: center;
-  gap: 5px;
-  transition: 0.2s;
-  user-select: none;
-}
-
-.walker-step-btn:hover,
-.walker-step-btn.active {
-  border-color: var(--a);
-  background: color-mix(in srgb, var(--a) 15%, var(--card));
   color: var(--a);
-  transform: translateY(-1px);
-  box-shadow: 0 4px 12px -2px var(--a);
+  font-size: 12px;
+  transition: transform 0.3s ease;
 }
 
-.walker-hint {
-  font-size: 11px;
-  color: var(--mu);
-  text-align: center;
-  white-space: nowrap;
+.walk-anim-card:hover .vanish-icon {
+  transform: rotate(90deg) scale(1.2);
 }
 
-.walker-track {
-  height: 6px;
-  background: var(--bd);
-  border-radius: 99px;
-  overflow: hidden;
-  position: relative;
-  cursor: pointer;
-}
-
-.walker-progress {
-  height: 100%;
-  width: 50%;
-  background: linear-gradient(90deg, var(--a), var(--b));
-  border-radius: 99px;
-  box-shadow: 0 0 10px var(--a);
-  transition: width 0.05s linear;
-}
 
 /* ═══════════════════════════════════════════
    HORIZONTAL SCROLL SECTION (PROJECTS)
